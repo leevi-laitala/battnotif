@@ -14,7 +14,7 @@ typedef struct {
 
 static char* fileCapacity = "/sys/class/power_supply/BAT0/capacity";
 static char* fileAc       = "/sys/class/power_supply/AC/online";
-static int interval = 3; // as seconds
+static int interval = 30; // as seconds
 static Rule chargeLevels[] = {
     {5,   "critically low!", "battery_alert"}, // Charge, notification, icon
     {15,  "low",             "battery_20"},
@@ -126,7 +126,7 @@ void checkRules() {
                 lastStatusAlert.full = false;
 
                 sprintf(nbody, "Battery charge at %d%%", battery.charge);
-                notify("Battery discharging", nbody, chargeLevels[(int)((battery.charge / 100) / (sizeof(chargeLevels) / sizeof(Rule)))].icon);
+                notify("Battery discharging", nbody, chargeLevels[0].icon);
             } else { // If status was discharging before
                 for (unsigned i = 0; i < (unsigned)(sizeof(chargeLevels) / sizeof(Rule)) - 2; i++) { // Loop through all rules, except last one as it's reserved for full battery check
                     if (battery.charge <= chargeLevels[i].charge) { // Check if charge is less that set rule
@@ -154,6 +154,7 @@ void checkRules() {
         }
     }
 }
+
 
 
 int main(void) {
