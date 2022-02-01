@@ -48,6 +48,11 @@ static Rule chargeLevels[] = {
 ```
 Here you set the rules for the notifications. 
 
+Icons are fetched recursively by your notification daemon from `/usr/share/icons`, icons can be inside folders
+as long as they are under previously mentioned path.
+
+Icons must be given without paths or file extensions.
+
 Last two entries have special use, but everything before that are treated as alerts. Alerts need to be sorted by
 the first variable in ascending order. There is no hardcoded cap, so you can add more if you want.
 
